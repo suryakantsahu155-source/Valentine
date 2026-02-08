@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+
+#yesBtn {
+background-color: #ff4d6d;
+color: white;
+}
+
+
+#yesBtn:hover {
+background-color: #e63950;
+}
+
+
+#noBtn {
+background-color: #adb5bd;
+color: white;
+position: absolute;
+}
+
+
+.message {
+margin-top: 25px;
+font-size: 22px;
+color: #c9184a;
+display: none;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="hearts">❤️ 💕 💖 💘 ❤️</div>
+<h1>Will you be my Valentine? 💌</h1>
+
+
+<div class="buttons">
+<button id="yesBtn">Yes 💖</button>
+<button id="noBtn">No 💔</button>
+</div>
+
+
+<div class="message" id="message">Yayyyy! I knew it 💕🥰</div>
+</div>
+
+
+<script>
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const message = document.getElementById('message');
+
+
+noBtn.addEventListener('mouseover', moveButton);
+noBtn.addEventListener('click', moveButton);
+
+
+function moveButton() {
+const container = document.querySelector('.container');
+const containerRect = container.getBoundingClientRect();
+
+
+const maxX = containerRect.width - noBtn.offsetWidth;
+const maxY = containerRect.height - noBtn.offsetHeight;
+
+
+const randomX = Math.random() * maxX;
+const randomY = Math.random() * maxY;
+
+
+noBtn.style.left = randomX + 'px';
+noBtn.style.top = randomY + 'px';
+}
+
+
+yesBtn.addEventListener('click', () => {
+message.style.display = 'block';
+yesBtn.style.display = 'none';
+noBtn.style.display = 'none';
+});
+</script>
+</body>
+</html>
