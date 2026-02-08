@@ -1,104 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Be My Valentine 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ffd1dc, #ff9aa2);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-    }
 
-    .container {
-      background: #fff0f5;
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
+<div class="message" id="message">
+Yayyyy Samruddhi! 💕🥰<br>You just made me the happiest ❤️
+</div>
+</div>
 
-    h1 {
-      color: #d6336c;
-    }
 
-    .hearts {
-      font-size: 28px;
-      margin-bottom: 15px;
-    }
+<div class="final" id="finalScreen">
+<h1>I Love You Samruddhi ❤️</h1>
+<p>
+From silly laughs to quiet moments,
+from today to every tomorrow —
+I choose you, always. 💫
+</p>
+</div>
 
-    button {
-      padding: 12px 30px;
-      font-size: 18px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
 
-    #yesBtn {
-      background-color: #ff4d6d;
-      color: white;
-    }
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
+const music = document.getElementById("bgMusic");
+const finalScreen = document.getElementById("finalScreen");
+const mainBox = document.getElementById("mainBox");
 
-    #yesBtn:hover {
-      background-color: #e63950;
-    }
 
-    #noBtn {
-      background-color: #adb5bd;
-      color: white;
-      position: absolute;
-    }
+function moveNo() {
+const x = Math.random() * 320 - 160;
+const y = Math.random() * 220 - 110;
+noBtn.style.transform = `translate(${x}px, ${y}px)`;
+}
 
-    .message {
-      margin-top: 25px;
-      font-size: 22px;
-      color: #c9184a;
-      display: none;
-    }
-  </style>
-</head>
 
-<body>
-  <div class="container">
-    <div class="hearts">❤️ 💕 💖 💘 ❤️</div>
-    <h1>Will you be my Valentine? 💌</h1>
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("click", moveNo);
 
-    <button id="yesBtn">Yes 💖</button>
-    <button id="noBtn">No 💔</button>
 
-    <div class="message" id="message">
-      Yayyyy! I knew it 💕🥰
-    </div>
-  </div>
+yesBtn.addEventListener("click", () => {
+message.style.display = "block";
+yesBtn.style.display = "none";
+noBtn.style.display = "none";
+music.play();
+startConfetti();
 
-  <script>
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const message = document.getElementById("message");
 
-    function moveNo() {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 200 - 100;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    }
+setTimeout(() => {
+mainBox.style.display = "none";
+finalScreen.style.display = "flex";
+}, 3000);
+});
 
-    noBtn.addEventListener("mouseover", moveNo);
-    noBtn.addEventListener("click", moveNo);
 
-    yesBtn.addEventListener("click", () => {
-      message.style.display = "block";
-      yesBtn.style.display = "none";
-      noBtn.style.display = "none";
-    });
-  </script>
+document.body.addEventListener('click', () => {
+music.play();
+}, { once: true });
+
+
+// CONFETTI
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+let confetti = [];
+
+
+function resize() {
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+
+function startConfetti() {
+confetti = Array.from({length: 200}, () => ({
+x: Math.random() * canvas.width,
+y: Math.random() * canvas.height - canvas.height,
+r: Math.random() * 6 + 4,
+d: Math.random() * 5 + 2,
+c: `hsl(${Math.random()*360},100%,70%)`
+}));
+animate();
+}
+
+
+function animate() {
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+confetti.forEach(p => {
+ctx.beginPath();
+ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+ctx.fillStyle = p.c;
+ctx.fill();
+p.y += p.d;
+if (p.y > canvas.height) p.y = -10;
+});
+requestAnimationFrame(animate);
+}
+</script>
 </body>
 </html>
